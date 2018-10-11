@@ -24,6 +24,7 @@ const Details = props => {
           <li>Wednesday</li>
         </ul>
       </div>
+      <button className='go-back' onClick={()=>history.push('/')}>↩</button>
       <button className='remove-city' onClick={() => {
         removeCity(placeId);
         history.push('/');
