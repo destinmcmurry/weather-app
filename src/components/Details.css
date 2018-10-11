@@ -7,14 +7,18 @@
 }
 
 .go-back {
-  margin: 3px auto auto 10px;
+  margin: 10px auto auto 10px;
   float: left;
   padding: 7px 8px 3px 8px;
 }
 
 .remove-city {
-  margin: 3px 10px auto auto;
+  margin: 10px 10px auto auto;
   float: right;
   font-size: 12px;
   padding: 3px 9px 4px 9px;
+}
+
+li {
+  padding: 5px 0;
 }

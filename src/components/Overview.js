@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PlacesAutoComplete from 'react-places-autocomplete';
-import { getCities, addCity } from './storageUtils';
+import { getCities, addCity } from '../localDb';
 import './Overview.css';
 
 class Overview extends Component {
@@ -61,14 +61,12 @@ class Overview extends Component {
               let endIdx = city.name.indexOf(',', firstCommaIdx+1);
               if (endIdx !== -1) city.name = city.name.slice(0, endIdx)
               return (
-                <Link key={city.placeId} to={`/details/${city.placeId}`}>
-                  <p>{city.name}</p>
-                </Link>
+                <Link className='city-name' key={city.placeId} to={`/details/${city.placeId}`}>{city.name}</Link>
               )
             }
             )
             :
-            <small>no cities in your dashboard yet.</small>
+            <small className='city-name'>empty.</small>
           }
         </div>
       </div>

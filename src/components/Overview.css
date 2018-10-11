@@ -13,3 +13,8 @@
   width: 91%;
   margin: auto;
 }
+
+.city-name {
+  display: block;
+  margin-top: 25px;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import history from '../history';
-import { getCityName, removeCity } from './storageUtils';
+import { getCityName, removeCity } from '../localDb';
 import './Details.css';
 
 const Details = props => {
@@ -8,11 +8,6 @@ const Details = props => {
   const city = getCityName(placeId);
   return (
     <div className='Details'>
-      <button className='go-back' onClick={()=>history.push('/')}>↩</button>
-      <button className='remove-city' onClick={() => {
-        removeCity(placeId);
-        history.push('/');
-      }}>x</button>
       <h2>{city}</h2>
       <div className='forecast'>
         <p>10-day Forecast</p>
@@ -29,6 +24,11 @@ const Details = props => {
           <li>Wednesday</li>
         </ul>
       </div>
+      <button className='go-back' onClick={()=>history.push('/')}>↩</button>
+      <button className='remove-city' onClick={() => {
+        removeCity(placeId);
+        history.push('/');
+      }}>x</button>
     </div>
   );
 }

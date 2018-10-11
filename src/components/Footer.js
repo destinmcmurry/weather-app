@@ -8,10 +8,16 @@ const footerStyle = {
   marginBottom: '5px'
 }
 
+const logoStyle = {
+  height: '20px',
+  width: '20px',
+  padding: '0 5px 15px 5px'
+}
+
 const Footer = props => {
   return (
     <div style={footerStyle}>
-      <small>an app by destin mcmurry</small>
+    <a href='https://github.com/destinmcmurry' target='blank'><img style={logoStyle} src='https://image.flaticon.com/icons/svg/25/25231.svg' alt='github'/></a>
     </div>
   );
 }
