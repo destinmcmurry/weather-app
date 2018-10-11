@@ -1,0 +1,10 @@
+.remove-city {
+  margin: 25px 10px auto auto;
+  float: right;
+  padding: 6px 10px;
+  text-align: center;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0px 0px 2px 0 rgba(0,0,0,0.5);
+  color: #909090;
+}

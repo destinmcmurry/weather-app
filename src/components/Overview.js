@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PlacesAutoComplete from 'react-places-autocomplete';
+import { getCities, addCity } from './storageUtils';
 import './Overview.css';
 
 class Overview extends Component {
   state = {
     cityInput: '',
-    cities: []
+    cities: getCities()
   }
   handleChange = cityInput => {
     this.setState({ cityInput });
   }
-  handleSelect = (city, placeId) => {
+  handleSelect = (name, placeId) => {
+    addCity(name, placeId);
     this.setState({ 
       cityInput: '',
-      cities: [...this.state.cities, { id: placeId, name: city }]
+      cities: getCities()
     });
   }
   render() {
@@ -59,7 +61,7 @@ class Overview extends Component {
               let endIdx = city.name.indexOf(',', firstCommaIdx+1);
               if (endIdx !== -1) city.name = city.name.slice(0, endIdx)
               return (
-                <Link key={city.id} to={`/details/${city.id}`}>
+                <Link key={city.placeId} to={`/details/${city.placeId}`}>
                   <p>{city.name}</p>
                 </Link>
               )

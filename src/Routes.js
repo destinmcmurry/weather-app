@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Overview } from './components';
+import { Overview, Details } from './components';
 
 const Routes = props => {
   return (
     <Switch>
-      {/*<Route path='/details/:city' component={Details} />*/}
+      <Route path='/details/:placeId' component={Details} />
       <Route path='/' component={Overview} />
     </Switch>
   )
