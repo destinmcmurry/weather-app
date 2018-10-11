@@ -8,8 +8,13 @@ const Details = props => {
   const city = getCityName(placeId);
   return (
     <div className='Details'>
+      <button className='go-back' onClick={()=>history.push('/')}>↩</button>
+      <button className='remove-city' onClick={() => {
+        removeCity(placeId);
+        history.push('/');
+      }}>x</button>
+      <h2>{city}</h2>
       <div className='forecast'>
-        <h2>{city}</h2>
         <p>10-day Forecast</p>
         <ul>
           <li>Monday</li>
@@ -24,11 +29,6 @@ const Details = props => {
           <li>Wednesday</li>
         </ul>
       </div>
-      <button className='go-back' onClick={()=>history.push('/')}>↩</button>
-      <button className='remove-city' onClick={() => {
-        removeCity(placeId);
-        history.push('/');
-      }}>x</button>
     </div>
   );
 }
