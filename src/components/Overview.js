@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PlacesAutoComplete from 'react-places-autocomplete';
-import { getCities, addCity } from '../localDb';
+import { getCities, addCity, updateTemp } from '../localDb';
 import './Overview.css';
 
 class Overview extends Component {
@@ -12,12 +12,31 @@ class Overview extends Component {
   handleChange = cityInput => {
     this.setState({ cityInput });
   }
-  handleSelect = (name, placeId) => {
-    addCity(name, placeId);
-    this.setState({ 
+  fetchAndUpdateTemp = city => {
+    let cityName = city.name.slice(0, city.name.indexOf(','));
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=5d1cec29c6fbcd01c898cb29cd62ee4d`)
+    .then(res => res.json())
+    .then(data => {
+      let temp = ((data.main.temp - 273.15) * (9/5) + 32).toFixed(0);
+      updateTemp(city.placeId, temp);
+    })
+    .then(()=> this.setState({
       cityInput: '',
       cities: getCities()
+    }))
+    .catch(err => console.log(err));
+  }
+  handleSelect = (name, placeId) => {
+    addCity(name, placeId);
+    this.fetchAndUpdateTemp({name, placeId});
+  }
+  componentDidMount() {
+    this.state.cities.forEach(city => {
+      this.fetchAndUpdateTemp(city);
     });
+    this.setState({
+      cities: getCities()
+    })
   }
   render() {
     return (
@@ -59,9 +78,14 @@ class Overview extends Component {
             this.state.cities.map(city => {
               let firstCommaIdx = city.name.indexOf(',');
               let endIdx = city.name.indexOf(',', firstCommaIdx+1);
-              if (endIdx !== -1) city.name = city.name.slice(0, endIdx)
+              if (endIdx !== -1) city.name = city.name.slice(0, endIdx);
               return (
-                <Link className='city-name' key={city.placeId} to={`/details/${city.placeId}`}>{city.name}</Link>
+                <div key={city.placeId}>
+                  <Link className='city-name' key={city.placeId} to={`/details/${city.placeId}`}>{city.name}</Link>
+                  {
+                    city.temp && <p>{city.temp}</p>
+                  }
+                </div>
               )
             }
             )

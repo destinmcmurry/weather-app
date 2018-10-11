@@ -22,3 +22,13 @@ export const removeCity = placeId => {
   window.localStorage.setItem(CITIES, JSON.stringify(cities))
   console.log(`${placeId} removed from list of ${cities.length} cities`)
 }
+
+export const updateTemp = (placeId, temp) => {
+  let cities = getCities();
+  cities = cities.map(city => {
+    if (city.placeId === placeId) city.temp = temp;
+    return city;
+  });
+  window.localStorage.setItem(CITIES, JSON.stringify(cities));
+  console.log(`temperatures updated`);
+}

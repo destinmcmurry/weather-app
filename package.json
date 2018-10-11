@@ -17,6 +17,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
+  "proxy": "http://localhost:3000",
   "devDependencies": {
     "ajv": "^6.5.3",
     "gh-pages": "^1.2.0"
