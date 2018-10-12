@@ -13,7 +13,7 @@ export const addCity = (name, placeId) => {
   let cities = getCities();
   cities.push({ name, placeId, weather: {} })
   window.localStorage.setItem(CITIES, JSON.stringify(cities))
-  console.log(`${name} with a placeId of ${placeId} added to list of ${cities.length} cities`)
+  console.log(`${name} added to list of ${cities.length} cities`)
 }
 
 export const removeCity = placeId => {
@@ -23,10 +23,13 @@ export const removeCity = placeId => {
   console.log(`${placeId} removed from list. ${cities.length} cities remaining`)
 }
 
-export const updateWeather = (placeId, temp) => {
+export const updateWeather = (placeId, temp, icon) => {
   let cities = getCities();
   cities = cities.map(city => {
-    if (city.placeId === placeId) city.weather.temp = temp;
+    if (city.placeId === placeId) {
+      city.weather.temp = temp;
+      city.weather.icon = icon;
+    }
     return city;
   });
   window.localStorage.setItem(CITIES, JSON.stringify(cities));

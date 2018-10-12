@@ -9,7 +9,8 @@ class Overview extends Component {
     cityInput: '',
     cities: getCities(),
     displayLimitReachedMsg: false,
-    displayErrorMsg: false
+    displayErrorMsg: false,
+    displayDuplicateCityMsg: false
   }
   handleChange = cityInput => {
     this.setState({ cityInput });
@@ -23,7 +24,7 @@ class Overview extends Component {
       .then(res => res.json())
       .then(data => {
         let temp = ((data.main.temp - 273.15) * (9/5) + 32).toFixed(0);
-        updateWeather(city.placeId, temp);
+        updateWeather(city.placeId, temp, data.weather[0].icon);
       })
       .then(()=> this.setState({
         cityInput: '',
@@ -40,9 +41,10 @@ class Overview extends Component {
   handleSelect = (name, placeId) => {
     if (this.state.cities.length === 5) {
       this.setState({ displayLimitReachedMsg: true, cityInput: '' })
-    }
-    else {
-      this.setState({ displayLimitReachedMsg: false, displayErrorMsg: false })
+    } else if (this.state.cities.find(city => city.placeId === placeId)) {
+      this.setState({ displayDuplicateCityMsg: true, cityInput: '' })
+    } else {
+      this.setState({ displayLimitReachedMsg: false, displayErrorMsg: false, displayDuplicateCityMsg: false })
       addCity(name, placeId);
       this.fetchAndUpdateWeather({name, placeId});
     }
@@ -58,6 +60,8 @@ class Overview extends Component {
   render() {
     return (
       <div className='Overview'>
+        <small id='error-message' className={this.state.displayLimitReachedMsg || this.state.displayErrorMsg || this.state.displayDuplicateCityMsg ? `visible` : `hidden` }>{this.state.displayErrorMsg ? 
+        `sorry, something went wrong! try choosing a different listing for the city you want` : this.state.displayDuplicateCityMsg ? `sorry, you already have that city!` : `limit reached: please delete a city before adding a new one` }</small>
         <div className='SearchBar'>
           <PlacesAutoComplete
             value={this.state.cityInput}
@@ -89,8 +93,6 @@ class Overview extends Component {
             )}
           </PlacesAutoComplete>
         </div>
-        <small id='error-message' className={this.state.displayLimitReachedMsg || this.state.displayErrorMsg ? `visible` : `hidden` }>{this.state.displayErrorMsg ? 
-         `sorry, something went wrong! try choosing a different listing for the city you want` : `sorry, no more than five cities allowed! please delete a city before adding a new one`}</small>
         <div className='CityList'>
           {this.state.cities.length
             ?
@@ -99,17 +101,24 @@ class Overview extends Component {
               let endIdx = city.name.indexOf(',', firstCommaIdx+1);
               if (endIdx !== -1) city.name = city.name.slice(0, endIdx);
               return (
-                <div key={city.placeId}>
+                <div className='CityItem' key={city.placeId}>
+                  <button className='remove-city' onClick={() => {
+                    removeCity(city.placeId); 
+                    this.setState({ cities: getCities(), displayLimitReachedMsg: false }) 
+                  }}>x</button>
                   <Link className='city-name' key={city.placeId} to={`/details/${city.placeId}`}>{city.name}</Link>
-                  {
-                    city.weather.temp && <p className='city-temp'>{city.weather.temp}°F</p>
+                  { city.weather.temp &&
+                  <div className='city-weather-overview'>
+                    <img src={`http://openweathermap.org/img/w/${city.weather.icon}.png`} alt='weather-icon' className='weather-icon'/>
+                    <span className='city-temp'>{city.weather.temp}°F</span>
+                  </div>
                   }
                 </div>
               )
             }
             )
             :
-            <small className='city-name'>no cities yet.</small>
+            <small>no cities yet.</small>
           }
         </div>
       </div>

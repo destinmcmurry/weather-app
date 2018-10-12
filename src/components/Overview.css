@@ -1,17 +1,31 @@
+.Overview {
+  text-align: center;
+  margin: 0 5%;
+  min-width: 260px;
+}
+
 .SearchBar input {
   padding: 5px;
   font-size: 15px;
-  width: 90%;
+  width: 75%;
   border-radius: 50px;
   text-align: center;
 }
 
+.SearchBar input:focus {
+  outline: none;
+}
+
 .autocomplete-dropdown-container {
+  position: absolute;
+  background-color: white;
+  z-index: 50;
+  left: 16%;
+  min-width: 260px;
   font-size: 15px;
   box-shadow: 0px 0px 20px -5px rgba(0,0,0,0.5);
   border-radius: 0 0 5px 5px;
-  width: 91%;
-  margin: auto;
+  width: 68%;
 }
 
 .autocomplete-dropdown-container div:hover {
@@ -19,17 +33,48 @@
   cursor: pointer;
 }
 
-.city-name {
-  display: block;
-  margin-top: 20px;
+.CityList {
+  margin-bottom: 75px;  
 }
 
-.city-temp {
+.CityItem {
+  padding: 10px;
+  border-radius: 5px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
   margin-top: 15px;
+  -webkit-box-shadow: 0px 1px 5px 0px rgba(177, 177, 177, 0.53);
+  box-shadow: 0px 1px 5px 0px rgba(177, 177, 177, 0.53);
+}
+
+.remove-city {
+  font-size: 30px;
+  font-weight: 200;
+  padding-bottom: 9px;
+}
+
+.city-name {
+  margin-left: 8%;
+  font-size: 20px;
+  text-align: left;
+  font-weight: 300;
+}
+
+.city-weather-overview {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 300;
+  margin: 0 3% 0 auto;
 }
 
 #error-message {
-  font-size: 12px;
+  font-size: 13px;
+  margin: 10px;
   transition: opacity 1s ease;
 }
 
@@ -39,4 +84,14 @@
 
 .hidden {
   opacity: 0;
+}
+
+.CityItem {
+  display: flex;
+}
+
+@media (max-width: 425px) {
+  .city-name, .city-weather-overview {
+    font-size: 17px;
+  }
 }

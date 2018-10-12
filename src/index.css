@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Helvetica Neue';
-  color: #3d3d3d;
+  color: #505050;
 }
 
 a {
@@ -13,4 +13,17 @@ a {
 ul {
   list-style: none;
   padding-left: 0;
+}
+
+button {
+  /* text-align: center;
+  box-shadow: 0px 0px 0px 1px;
+  border-radius: 50%;
+  color: #515151;
+  cursor: pointer; */
+  text-align: center;
+  border: none;
+  font-size: 15px;
+  color: #515151;
+  cursor: pointer;
 }
