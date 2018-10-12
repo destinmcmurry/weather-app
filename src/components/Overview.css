@@ -14,7 +14,29 @@
   margin: auto;
 }
 
+.autocomplete-dropdown-container div:hover {
+  background-color: lightgray;
+  cursor: pointer;
+}
+
 .city-name {
   display: block;
-  margin-top: 25px;
+  margin-top: 20px;
+}
+
+.city-temp {
+  margin-top: 15px;
+}
+
+#error-message {
+  font-size: 12px;
+  transition: opacity 1s ease;
+}
+
+.visible {
+  opacity: .8;
+}
+
+.hidden {
+  opacity: 0;
 }

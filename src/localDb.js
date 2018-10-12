@@ -11,7 +11,7 @@ export const getCityName = placeId => {
 
 export const addCity = (name, placeId) => {
   let cities = getCities();
-  cities.push({ name, placeId })
+  cities.push({ name, placeId, weather: {} })
   window.localStorage.setItem(CITIES, JSON.stringify(cities))
   console.log(`${name} with a placeId of ${placeId} added to list of ${cities.length} cities`)
 }
@@ -20,13 +20,13 @@ export const removeCity = placeId => {
   let cities = getCities()
   cities = cities.filter(city => city.placeId !== placeId)
   window.localStorage.setItem(CITIES, JSON.stringify(cities))
-  console.log(`${placeId} removed from list of ${cities.length} cities`)
+  console.log(`${placeId} removed from list. ${cities.length} cities remaining`)
 }
 
-export const updateTemp = (placeId, temp) => {
+export const updateWeather = (placeId, temp) => {
   let cities = getCities();
   cities = cities.map(city => {
-    if (city.placeId === placeId) city.temp = temp;
+    if (city.placeId === placeId) city.weather.temp = temp;
     return city;
   });
   window.localStorage.setItem(CITIES, JSON.stringify(cities));
