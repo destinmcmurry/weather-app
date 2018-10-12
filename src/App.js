@@ -7,6 +7,7 @@ const App = props => {
   return (
     <div>
       <div className='heading'>
+      <img className='whether-logo' src='logo.png'/>
       <h1 className='header'>Whether</h1>
       <h4 className='sub-header'>the weather's good</h4>
       </div>

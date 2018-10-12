@@ -108,10 +108,10 @@ class Overview extends Component {
                   }}>x</button>
                   <Link className='city-name' key={city.placeId} to={`/details/${city.placeId}`}>{city.name}</Link>
                   { city.weather.temp &&
-                  <div className='city-weather-overview'>
-                    <img src={`http://openweathermap.org/img/w/${city.weather.icon}.png`} alt='weather-icon' className='weather-icon'/>
-                    <span className='city-temp'>{city.weather.temp}°F</span>
-                  </div>
+                    <Link className='city-name' className='city-weather-overview' key={city.placeId} to={`/details/${city.placeId}`}>
+                      <img src={`http://openweathermap.org/img/w/${city.weather.icon}.png`} alt='weather-icon' className='weather-icon'/>
+                      <span className='city-temp'>{city.weather.temp}°F</span>
+                      </Link>
                   }
                 </div>
               )
