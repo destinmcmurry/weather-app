@@ -16,15 +16,13 @@ class Overview extends Component {
     this.setState({ cityInput });
   }
   fetchAndUpdateWeather = city => {
-    geocodeByAddress(city.name)
-      .then(results => getLatLng(results[0]))
-      .then(latLng =>
-        fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${latLng.lat}&lon=${latLng.lng}&APPID=5d1cec29c6fbcd01c898cb29cd62ee4d`)
-      )
+    fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lng}&units=imperial&APPID=5d1cec29c6fbcd01c898cb29cd62ee4d`)
       .then(res => res.json())
       .then(data => {
-        let temp = ((data.main.temp - 273.15) * (9/5) + 32).toFixed(0);
-        updateWeather(city.placeId, temp, data.weather[0].icon);
+        let temp = data.main.temp.toFixed(0);
+        let high = data.main.temp_max.toFixed(0);
+        let low = data.main.temp_min.toFixed(0);
+        updateWeather(city.placeId, temp, high, low, data.weather[0].icon, data.weather[0].description, data.main.humidity);
       })
       .then(()=> this.setState({
         cityInput: '',
@@ -39,14 +37,27 @@ class Overview extends Component {
       });
   }
   handleSelect = (name, placeId) => {
+    let lng, lat;
     if (this.state.cities.length === 5) {
       this.setState({ displayLimitReachedMsg: true, cityInput: '' })
     } else if (this.state.cities.find(city => city.placeId === placeId)) {
       this.setState({ displayDuplicateCityMsg: true, cityInput: '' })
     } else {
-      this.setState({ displayLimitReachedMsg: false, displayErrorMsg: false, displayDuplicateCityMsg: false })
-      addCity(name, placeId);
-      this.fetchAndUpdateWeather({name, placeId});
+      this.setState({ displayLimitReachedMsg: false, displayErrorMsg: false, displayDuplicateCityMsg: false });
+      geocodeByAddress(name)
+        .then(results => getLatLng(results[0]))
+        .then(latLng => {
+          lat = latLng.lat;
+          lng = latLng.lng;
+          return addCity(name, placeId, lat, lng)
+        })
+        .then(() => this.fetchAndUpdateWeather({name, placeId, lat, lng}))
+        .catch(err => {
+          console.log(err);
+          this.setState({
+            displayErrorMsg: true
+          })
+        });
     }
   }
   componentDidMount() {
@@ -61,7 +72,7 @@ class Overview extends Component {
     return (
       <div className='Overview'>
         <small id='error-message' className={this.state.displayLimitReachedMsg || this.state.displayErrorMsg || this.state.displayDuplicateCityMsg ? `visible` : `hidden` }>{this.state.displayErrorMsg ? 
-        `sorry, something went wrong! try choosing a different listing for the city you want` : this.state.displayDuplicateCityMsg ? `sorry, you already have that city!` : `limit reached: please delete a city before adding a new one` }</small>
+        `sorry, something went wrong! try refreshing` : this.state.displayDuplicateCityMsg ? `sorry, you already have that city!` : `limit reached: please delete a city before adding a new one` }</small>
         <div className='SearchBar'>
           <PlacesAutoComplete
             value={this.state.cityInput}
@@ -108,10 +119,10 @@ class Overview extends Component {
                   }}>x</button>
                   <Link className='city-name' key={city.placeId} to={`/details/${city.placeId}`}>{city.name}</Link>
                   { city.weather.temp &&
-                    <Link className='city-name' className='city-weather-overview' key={city.placeId} to={`/details/${city.placeId}`}>
-                      <img src={`http://openweathermap.org/img/w/${city.weather.icon}.png`} alt='weather-icon' className='weather-icon'/>
-                      <span className='city-temp'>{city.weather.temp}°F</span>
-                      </Link>
+                  <Link className='city-weather-overview' to={`/details/${city.placeId}`}>
+                    <img src={`http://openweathermap.org/img/w/${city.weather.icon}.png`} alt='weather-icon' className='weather-icon'/>
+                    <span className='city-temp'>{city.weather.temp}°F</span>
+                  </Link>
                   }
                 </div>
               )

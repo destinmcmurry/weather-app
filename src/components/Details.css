@@ -1,6 +1,7 @@
 .Details {
   text-align: center;
   margin: 1% 5%;
+  min-width: 260px;
 }
 
 .go-back {
@@ -11,6 +12,43 @@
   font-size: 20px;
 }
 
-.city-name-details {
+.details-city-name {
   font-weight: 300;
+  margin-bottom: 5px;
+}
+
+.details-city-temp {
+  margin: 5px auto;
+  font-weight: 100;
+  font-size: 45px;
+}
+
+.forecast {
+  margin-bottom: 15px;
+}
+
+.forecast-item {
+  border-radius: 5px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-shadow: 0px 2px 10px 0 rgba(70, 70, 70, 0.16);
+  box-shadow: 0px 2px 10px 0 rgba(70, 70, 70, 0.16);
+  background-color: white;
+  justify-content: space-around;
+}
+
+.day {
+  font-size: 20px;
+  font-weight: 300;
+  width: 100px;
+}
+
+.low {
+  padding-right: 15px;
+}
+
+.high-low {
+  padding-left: 50px;
 }
