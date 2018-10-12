@@ -11,6 +11,6 @@
   font-size: 20px;
 }
 
-li {
-  padding: 5px 0;
+.city-name-details {
+  font-weight: 300;
 }

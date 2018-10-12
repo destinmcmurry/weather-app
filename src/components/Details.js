@@ -8,7 +8,7 @@ const Details = props => {
   const city = getCityName(placeId);
   return (
     <div className='Details'>
-      <h2>{city}</h2>
+      <h2 className='city-name-details'>{city}</h2>
       <div className='forecast'>
         <p>10-day Forecast</p>
       </div>
