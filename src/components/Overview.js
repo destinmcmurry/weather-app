@@ -119,7 +119,7 @@ class Overview extends Component {
                   }}>x</button>
                   <div className='city-name'>
                     <Link to={`/details/${city.placeId}`}>{city.name}</Link>
-                    <small className='verdict'>({getVerdict(city.weather.temp, city.weather.code)})</small>
+                    <small className='verdict'>{getVerdict(city.weather.temp, city.weather.code)}</small>
                   </div>
                   { city.weather.temp &&
                   <Link className='city-weather-overview' to={`/details/${city.placeId}`}>
