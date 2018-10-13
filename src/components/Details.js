@@ -56,7 +56,7 @@ class Details extends Component {
               return (
               <div key={idx} className='forecast-item'>
                 <span className='day'>{d}</span>
-                <img src={`http://openweathermap.org/img/w/${day.icon}.png`} alt='weather-icon'/>
+                <img src={`https://openweathermap.org/img/w/${day.icon}.png`} alt='weather-icon'/>
                 <div className='high-low'>
                   <span className='high'>{day.high}</span>
                 </div>

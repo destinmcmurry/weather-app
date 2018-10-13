@@ -123,7 +123,7 @@ class Overview extends Component {
                   </div>
                   { city.weather.temp &&
                   <Link className='city-weather-overview' to={`/details/${city.placeId}`}>
-                    <img src={`http://openweathermap.org/img/w/${city.weather.icon}.png`} alt='weather-icon' className='weather-icon'/>
+                    <img src={`https://openweathermap.org/img/w/${city.weather.icon}.png`} alt='weather-icon' className='weather-icon'/>
                     <span className='city-temp'>{city.weather.temp}°F</span>
                   </Link>
                   }
