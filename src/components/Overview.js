@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PlacesAutoComplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { getCities, addCity, updateWeather, removeCity } from '../localDb';
+import { getCities, addCity, updateWeather, removeCity, getVerdict } from '../localDb';
 import './Overview.css';
 
 class Overview extends Component {
@@ -22,7 +22,7 @@ class Overview extends Component {
         let temp = data.main.temp.toFixed(0);
         let high = data.main.temp_max.toFixed(0);
         let low = data.main.temp_min.toFixed(0);
-        updateWeather(city.placeId, temp, high, low, data.weather[0].icon, data.weather[0].description, data.main.humidity);
+        updateWeather(city.placeId, temp, high, low, data.weather[0].icon, data.weather[0].description, data.main.humidity, data.main.pressure, data.weather[0].id);
       })
       .then(()=> this.setState({
         cityInput: '',
@@ -117,7 +117,10 @@ class Overview extends Component {
                     removeCity(city.placeId); 
                     this.setState({ cities: getCities(), displayLimitReachedMsg: false }) 
                   }}>x</button>
-                  <Link className='city-name' key={city.placeId} to={`/details/${city.placeId}`}>{city.name}</Link>
+                  <div className='city-name'>
+                    <Link to={`/details/${city.placeId}`}>{city.name}</Link>
+                    <small className='verdict'>({getVerdict(city.weather.temp, city.weather.code)})</small>
+                  </div>
                   { city.weather.temp &&
                   <Link className='city-weather-overview' to={`/details/${city.placeId}`}>
                     <img src={`http://openweathermap.org/img/w/${city.weather.icon}.png`} alt='weather-icon' className='weather-icon'/>

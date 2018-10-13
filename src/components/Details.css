@@ -2,19 +2,26 @@
   text-align: center;
   margin: 1% 5%;
   min-width: 260px;
+  margin-bottom: 75px;
 }
 
 .go-back {
-  margin: 10px auto auto 10px;
+  font-stretch: expanded;
   float: left;
-  padding: 7px 8px 3px 8px;
+  padding: 9px 8px 0 8px;
   font-weight: 100;
-  font-size: 20px;
+  font-size: 30px;
 }
 
 .details-city-name {
   font-weight: 300;
-  margin-bottom: 5px;
+  margin-bottom: 0;
+  font-size: 30px;
+  padding-right: 25px;
+}
+
+.details-description {
+  margin: 10px 0 0 0;
 }
 
 .details-city-temp {
@@ -24,7 +31,7 @@
 }
 
 .forecast {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .forecast-item {
@@ -51,4 +58,10 @@
 
 .high-low {
   padding-left: 50px;
+}
+
+.humidity, .pressure {
+  font-size: 14px;
+  font-weight: 300;
+  margin: 5px;
 }

@@ -61,6 +61,14 @@
   font-size: 20px;
   text-align: left;
   font-weight: 300;
+  display: flex;
+  flex-flow: column;
+}
+
+.verdict {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
 }
 
 .city-weather-overview {

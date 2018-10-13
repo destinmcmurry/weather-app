@@ -36,11 +36,12 @@ class Details extends Component {
   }
   render() {
     const { name, weather } = this.state.city;
-    const { temp, high, low, humidity, description } = weather;
+    const { temp, humidity, pressure, description } = weather;
     return (
       <div className='Details'>
+        <button className='go-back' onClick={()=>history.push('/')}>˂</button>
         <h2 className='details-city-name'>{name}</h2>
-        <small>{description}</small>
+        <p className='details-description'>{description}</p>
         <h1 className='details-city-temp'>{temp}°F</h1>
         <div className='forecast'>
         {this.state.city.forecast &&
@@ -52,18 +53,19 @@ class Details extends Component {
               return (
               <div key={i} className='forecast-item'>
                 <span className='day'>{d}</span>
-                <img src={`http://openweathermap.org/img/w/${day.icon}.png`}/>
+                <img src={`http://openweathermap.org/img/w/${day.icon}.png`} alt='weather-icon'/>
                 <div className='high-low'>
                   <span className='low'>{day.low}</span>
                   <span className='high'>{day.high}</span>
                 </div>
-                </div>
+              </div>
               )
             }
           })
         }
         </div>
-        <button className='go-back' onClick={()=>history.push('/')}>↩</button>
+        <p className='humidity'>humidity: {humidity}%</p>
+        <p className='pressure'>pressure: {pressure}hPa</p>
       </div>
     );
   }
