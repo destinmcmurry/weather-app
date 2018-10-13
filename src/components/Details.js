@@ -9,7 +9,7 @@ class Details extends Component {
     displayErrorMsg: false
   }
   fetchAndUpdateForecast = city => {
-    fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lng}&units=imperial&APPID=5d1cec29c6fbcd01c898cb29cd62ee4d`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lng}&units=imperial&APPID=5d1cec29c6fbcd01c898cb29cd62ee4d`)
       .then(res => res.json())
       .then(data => {
         let days = data.list.map(day => (
