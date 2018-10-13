@@ -36,7 +36,7 @@ class Details extends Component {
   }
   render() {
     const { name, weather } = this.state.city;
-    const { temp, humidity, pressure, description } = weather;
+    const { temp, humidity, pressure, description, icon } = weather;
     return (
       <div className='Details'>
         <button className='go-back' onClick={()=>history.push('/')}>˂</button>
@@ -46,16 +46,18 @@ class Details extends Component {
         <div className='forecast'>
         {this.state.city.forecast &&
           this.state.city.forecast.map((day, i) => {
-            // had to do this for now because was getting 401 error for 16day forecast API call
-            if (i % 7 === 0 && i !== 0) {
+            let idx;
+            icon[2] === 'n' ? idx = i+4 : idx = i;
+            // same time of day as the call, so if it's night, the forecast is night, bleh
+            // will fix this janky code with the dark skies forecast API since the forecast API for openweather, isn't, OPEN
+            if (idx % 8 === 0 && idx !== 0) {
               let d = new Date();
-              d = getDayOfWeek(Math.floor(d.getDay()+(i/7))%7);
+              d = getDayOfWeek(Math.floor(d.getDay()+(idx/7))%7);
               return (
-              <div key={i} className='forecast-item'>
+              <div key={idx} className='forecast-item'>
                 <span className='day'>{d}</span>
                 <img src={`http://openweathermap.org/img/w/${day.icon}.png`} alt='weather-icon'/>
                 <div className='high-low'>
-                  <span className='low'>{day.low}</span>
                   <span className='high'>{day.high}</span>
                 </div>
               </div>
