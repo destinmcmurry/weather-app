@@ -48,7 +48,7 @@ class Details extends Component {
           this.state.city.forecast.map((day, i) => {
             let idx;
             icon[2] === 'n' ? idx = i+4 : idx = i;
-            // same time of day as the call, so if it's night, the forecast is night, bleh
+            // same time of day as the call, so if it's night, the forecast is night, so i tried to offset that here
             // will fix this janky code with the dark skies forecast API since the forecast API for openweather, isn't, OPEN
             if (idx % 8 === 0 && idx !== 0) {
               let d = new Date();

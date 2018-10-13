@@ -1,7 +1,8 @@
 .heading {
   padding: 10px 0px 15px;
   text-align: center;
-  box-shadow: rgba(0, 0, 0, 0.81) 0px 1px 13px -5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.81) 0px 1px 9px -5px;
+  box-shadow: rgba(0, 0, 0, 0.81) 0px 1px 9px -5px;
   border-radius: 0px 0px 5px 5px;
   margin-bottom: 7px;
   background-color: white;
