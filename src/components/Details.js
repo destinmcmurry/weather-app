@@ -6,21 +6,13 @@ import './Details.css';
 class Details extends Component {
   state = {
     city: getCity(this.props.match.params.placeId),
+    fiveDay: [],
     displayErrorMsg: false
   }
   fetchAndUpdateForecast = city => {
     fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lng}&units=imperial&APPID=5d1cec29c6fbcd01c898cb29cd62ee4d`)
       .then(res => res.json())
-      .then(data => {
-        let days = data.list.map(day => (
-          {
-            high: day.main.temp_max.toFixed(0),
-            low: day.main.temp_min.toFixed(0),
-            icon: day.weather[0].icon,
-          }
-        ));
-        updateForecast(city.placeId, days);
-      })
+      .then(data => updateForecast(city.placeId, data))
       .then(()=> this.setState({
         city: getCity(city.placeId)
       }))
@@ -36,7 +28,7 @@ class Details extends Component {
   }
   render() {
     const { name, weather } = this.state.city;
-    const { temp, humidity, pressure, description, icon } = weather;
+    const { temp, humidity, pressure, description } = weather;
     return (
       <div className='Details'>
         <button className='go-back' onClick={()=>history.push('/')}>˂</button>
@@ -46,23 +38,18 @@ class Details extends Component {
         <div className='forecast'>
         {this.state.city.forecast &&
           this.state.city.forecast.map((day, i) => {
-            let idx;
-            icon[2] === 'n' ? idx = i+4 : idx = i;
-            // same time of day as the call, so if it's night, the forecast is night, so i tried to offset that here
-            // will fix this janky code with the dark skies forecast API since the forecast API for openweather, isn't, OPEN
-            if (idx % 8 === 0 && idx !== 0) {
-              let d = new Date();
-              d = getDayOfWeek(Math.floor(d.getDay()+(idx/7))%7);
-              return (
-              <div key={idx} className='forecast-item'>
-                <span className='day'>{d}</span>
-                <img src={`https://openweathermap.org/img/w/${day.icon}.png`} alt='weather-icon'/>
-                <div className='high-low'>
-                  <span className='high'>{day.high}</span>
-                </div>
-              </div>
-              )
-            }
+          let d = new Date();
+          d = getDayOfWeek((d.getDay()+i+1)%6);
+          return (
+          <div key={i} className='forecast-item'>
+            <span className='day'>{d}</span>
+            <img src={`https://openweathermap.org/img/w/${day.icon}.png`} alt='weather-icon'/>
+            <div className='high-low'>
+              <span className='high'>{day.high}</span>
+              <span className='low'>{day.low}</span>
+            </div>
+          </div>
+          )
           })
         }
         </div>
