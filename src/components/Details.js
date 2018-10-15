@@ -41,7 +41,6 @@ class Details extends Component {
           let d = new Date();
           d = getDayOfWeek((d.getDay()+i+1)%6);
           let temp = ((+day.high) + (+day.low)) / 2;
-          console.log(temp, day.code);
           let verdict = getVerdict(temp, day.code);
           return (
           <div key={i} className='forecast-item'>

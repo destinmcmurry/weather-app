@@ -67,7 +67,7 @@ export const getVerdict = (temp, code) => {
   temp = +temp;
   if (temp > 95 || temp < 30 || code === 502 || code === 503 || code === 504 || code === 511 || code === 522 || code === 531 || code < 233 || code === 602 || code === 622 || code === 711 || code === 731 || code === 762 || code === 781) {
     return 'nope';
-  } else if (code >= 800 && temp > 45) {
+  } else if (code >= 800 && temp > 35) {
     return 'yep';
   } else {
     return 'eh';
