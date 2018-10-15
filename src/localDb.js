@@ -15,32 +15,42 @@ const processForecastResponse = data => {
 
 const getFiveDayForecast = forecast => {
   let days = [];
-  let day = 0, highs = [], lows = [], icon = '';
+
+  let setNewDayOnNextD = false, getIconOnNextD = false, highs = [], lows = [], icon = '', pastCurrentDay = false;
   forecast.forEach(prediction => {
-    if (day) {
-      if (prediction.time === '00') {
+    if (prediction.nord === 'n') {
+      setNewDayOnNextD = true;
+    }
+    if (prediction.nord === 'd' && setNewDayOnNextD) {
+      if (pastCurrentDay) {
         days.push({
           high: Math.max(...highs),
           low: Math.min(...lows),
           icon
         })
-        day++; 
-        highs = []; 
-        lows = []; 
-        icon = '';
+      } else {
+        pastCurrentDay = true;
       }
-      highs.push(prediction.high);
-      lows.push(prediction.low);
-      if (prediction.time === '12') icon = prediction.icon;
-    } else if (prediction.time === '00') {
-      day++;
+      highs = []; 
+      lows = []; 
+      icon = '';
+      setNewDayOnNextD = false;
+      getIconOnNextD = true;
+    } 
+    if (prediction.nord === 'd' && getIconOnNextD) {
+      icon = prediction.icon;
+      getIconOnNextD = false;
     }
+    highs.push(prediction.high);
+    lows.push(prediction.low);
   });
+
   if (days.length < 5) days.push({
     high: Math.max(...highs),
     low: Math.min(...lows),
     icon
   });
+
   return days;
 }
 

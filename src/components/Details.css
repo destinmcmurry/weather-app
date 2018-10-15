@@ -53,8 +53,12 @@
 }
 
 .high-low {
-  padding-left: 60px;
-  padding-right: 23px;
+  padding-left: 40px;
+  padding-right: 10px;
+}
+
+.high {
+  padding-right: 25px;
 }
 
 .humidity, .pressure {
