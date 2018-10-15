@@ -5,6 +5,7 @@ const processForecastResponse = data => {
     ({
       time: prediction.dt_txt.slice(prediction.dt_txt.indexOf(' ')+1, prediction.dt_txt.indexOf(' ')+3),
       nord: prediction.sys.pod,
+      code: prediction.weather[0].id,
       temp: prediction.main.temp.toFixed(0),
       high: prediction.main.temp_max.toFixed(0),
       low: prediction.main.temp_min.toFixed(0),
@@ -16,7 +17,7 @@ const processForecastResponse = data => {
 const getFiveDayForecast = forecast => {
   let days = [];
 
-  let setNewDayOnNextD = false, getIconOnNextD = false, highs = [], lows = [], icon = '', pastCurrentDay = false;
+  let setNewDayOnNextD = false, getIconOnNextD = false, highs = [], lows = [], icon = '', code = '', pastCurrentDay = false;
   forecast.forEach(prediction => {
     if (prediction.nord === 'n') {
       setNewDayOnNextD = true;
@@ -26,7 +27,8 @@ const getFiveDayForecast = forecast => {
         days.push({
           high: Math.max(...highs),
           low: Math.min(...lows),
-          icon
+          icon,
+          code
         })
       } else {
         pastCurrentDay = true;
@@ -39,6 +41,7 @@ const getFiveDayForecast = forecast => {
     } 
     if (prediction.nord === 'd' && getIconOnNextD) {
       icon = prediction.icon;
+      code = prediction.code;
       getIconOnNextD = false;
     }
     highs.push(prediction.high);
@@ -48,7 +51,8 @@ const getFiveDayForecast = forecast => {
   if (days.length < 5) days.push({
     high: Math.max(...highs),
     low: Math.min(...lows),
-    icon
+    icon,
+    code
   });
 
   return days;
@@ -87,14 +91,14 @@ export const addCity = (name, placeId, lat, lng) => {
   let cities = getCities();
   cities.push({ name, placeId, lat, lng, weather: {} })
   window.localStorage.setItem(CITIES, JSON.stringify(cities))
-  console.log(`${name} added to list of ${cities.length} cities`)
+  console.log(`${name} added to list`)
 }
 
 export const removeCity = placeId => {
   let cities = getCities()
   cities = cities.filter(city => city.placeId !== placeId)
   window.localStorage.setItem(CITIES, JSON.stringify(cities))
-  console.log(`${placeId} removed from list. ${cities.length} cities remaining`)
+  console.log(`City with the place id of ${placeId} removed from list`)
 }
 
 export const updateWeather = (placeId, temp, high, low, icon, description, humidity, pressure, code) => {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import history from '../history';
-import { getCity, updateForecast, getDayOfWeek } from '../localDb';
+import { getCity, updateForecast, getDayOfWeek, getVerdict } from '../localDb';
 import './Details.css';
 
 class Details extends Component {
@@ -40,9 +40,15 @@ class Details extends Component {
           this.state.city.forecast.map((day, i) => {
           let d = new Date();
           d = getDayOfWeek((d.getDay()+i+1)%6);
+          let temp = ((+day.high) + (+day.low)) / 2;
+          console.log(temp, day.code);
+          let verdict = getVerdict(temp, day.code);
           return (
           <div key={i} className='forecast-item'>
-            <span className='day'>{d}</span>
+            <div className='day-container'>
+              <span className='day'>{d}</span>
+              <span className='verdict'>{verdict}</span>
+            </div>
             <img src={`https://openweathermap.org/img/w/${day.icon}.png`} alt='weather-icon'/>
             <div className='high-low'>
               <span className='high'>{day.high}</span>
