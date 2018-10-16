@@ -39,7 +39,7 @@ class Details extends Component {
         {this.state.city.forecast &&
           this.state.city.forecast.map((day, i) => {
           let d = new Date();
-          d = getDayOfWeek((d.getDay()+i+1)%6);
+          d = getDayOfWeek((d.getDay()+i+1)%7);
           let temp = ((+day.high) + (+day.low)) / 2;
           let verdict = getVerdict(temp, day.code);
           return (
