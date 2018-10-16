@@ -6,7 +6,6 @@
 }
 
 .go-back {
-  font-stretch: expanded;
   float: left;
   padding: 9px 8px 0 8px;
   font-weight: 100;
@@ -75,11 +74,11 @@
 }
 
 @media (max-width: 425px) {
-  .details-city-name {
-    font-size: 25px;
-  }
   .details-city-temp {
     font-size: 35px;
+  }
+  .go-back {
+    padding-top: 0;
   }
   .day {
     font-size: 17px;

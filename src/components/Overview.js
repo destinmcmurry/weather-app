@@ -72,7 +72,7 @@ class Overview extends Component {
     return (
       <div className='Overview'>
         <small id='error-message' className={this.state.displayLimitReachedMsg || this.state.displayErrorMsg || this.state.displayDuplicateCityMsg ? `visible` : `hidden` }>{this.state.displayErrorMsg ? 
-        `sorry, something went wrong! try refreshing` : this.state.displayDuplicateCityMsg ? `sorry, you already have that city!` : `limit reached: please delete a city before adding a new one` }</small>
+        `sorry, something went wrong.. try refreshing?` : this.state.displayDuplicateCityMsg ? `you already have that one, silly` : `oops, you've reached the city limit` }</small>
         <div className='SearchBar'>
           <PlacesAutoComplete
             value={this.state.cityInput}
