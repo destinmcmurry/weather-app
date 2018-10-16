@@ -4,13 +4,15 @@ import './NotFound.css';
 
 class NotFound extends Component {
   state = {
-    seconds: 4
+    countdown: 4
   }
   countdown = () => {
-    if (this.state.seconds < 2) {
+    if (this.state.countdown < 2) {
       history.push('/');
     } else {
-     this.setState({ seconds: this.state.seconds-1 })
+      this.setState(prevState => ({
+        countdown: prevState.countdown - 1
+      }));
      setTimeout(this.countdown, 1500)
     }
   }
@@ -23,7 +25,7 @@ class NotFound extends Component {
         <img src={`https://openweathermap.org/img/w/09d.png`} alt='weather-icon' className='not-found-weather-icon'/>
         <h4 className='not-found-message'>Sorry to rain on your parade, but this isn't one of your cities</h4>
         <p>taking you home in</p>
-        <p>{this.state.seconds}</p>
+        <p>{this.state.countdown}</p>
       </div>
     )
   }
