@@ -75,7 +75,7 @@ export const getVerdict = (temp, code) => {
     return 'yep';
   } else if (code >= 800 && temp >= 50) {
     return 'yeh';
-  }else if (nahs.includes(code) && temp >= 40) {
+  } else if (nahs.includes(code) && temp >= 40) {
     return 'nah';
   } else if (temp >= 40) {
     return 'eh';
