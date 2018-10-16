@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import history from '../history';
 import { getCity, updateForecast, getDayOfWeek, getVerdict } from '../localDb';
+import NotFound from './NotFound';
 import './Details.css';
 
 class Details extends Component {
@@ -24,11 +25,17 @@ class Details extends Component {
       });
   }
   componentDidMount() {
-    this.fetchAndUpdateForecast(this.state.city);
+    if (this.state.city) {
+      this.fetchAndUpdateForecast(this.state.city);
+    }
   }
   render() {
+
+    if (!this.state.city) return <NotFound />
+
     const { name, weather } = this.state.city;
     const { temp, humidity, pressure, description } = weather;
+
     return (
       <div className='Details'>
         <button className='go-back' onClick={()=>history.push('/')}>˂</button>
