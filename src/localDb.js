@@ -65,12 +65,20 @@ export const getDayOfWeek = i => {
 
 export const getVerdict = (temp, code) => {
   temp = +temp;
-  if (temp > 95 || temp < 30 || code === 502 || code === 503 || code === 504 || code === 511 || code === 522 || code === 531 || code < 233 || code === 602 || code === 622 || code === 711 || code === 731 || code === 762 || code === 781) {
-    return 'nope';
-  } else if (code >= 800 && temp > 35) {
+  let ohnos = [202, 212, 221, 232, 302, 312, 314, 502, 503, 504, 511, 522, 531, 602, 622, 711, 731, 762, 771, 781];
+  let nahs = [200, 201, 210, 211, 230, 231, 300, 301, 310, 311, 313, 321, 500, 501, 520, 521, 601, 611, 612, 615, 616, 620, 621];
+  if (temp > 100 || temp < 30 || ohnos.includes(code)) {
+    return 'oh no';
+  } else if (code === 800 && temp >= 70) {
+    return 'oh yeah';
+  } else if (code >= 800 && temp >= 60) {
     return 'yep';
-  } else {
+  } else if (nahs.includes(code) && temp >= 40) {
+    return 'nah';
+  } else if (temp >= 40) {
     return 'eh';
+  } else {
+    return 'nope';
   }
 }
 

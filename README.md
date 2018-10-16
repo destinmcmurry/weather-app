@@ -4,10 +4,8 @@ A project that displays whether the weather is good in 5 different cities! Inclu
 
 I chose to code the site in React because of frequent re-rendering and data changes, and I chose to use local storage so that a user can use the app without signing in and their changes will persist.
 
-### Upcoming Features:
+Thinking of also adding user preferences, so if someone likes snow or thunderstorms, their verdicts will be tailored to their preferences.
 
-  - User preferences! If someone likes snow or thunderstorms, their verdicts will be tailored to their preferences
-  - More verdicts! I'd like a wider array of messages to fit the many types of weather
-  - Will look into using Jest as a testing framework too (cuz tests are important ~)
+Also, going to make the list able to hold more than 5 cities, maybe 10-15?
 
 Enjoy!
