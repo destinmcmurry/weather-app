@@ -42,6 +42,9 @@ class Details extends Component {
         <h2 className='details-city-name'>{name}</h2>
         <p className='details-description'>{description}</p>
         <h1 className='details-city-temp'>{temp}°F</h1>
+        {this.state.displayErrorMsg && 
+          <p className='forecast-item'>Sorry, something went wrong getting the forecast.. Try again later?</p>
+        }
         <div className='forecast'>
         {this.state.city.forecast &&
           this.state.city.forecast.map((day, i) => {
