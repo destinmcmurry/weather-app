@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PlacesAutoComplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { getCities, addCity, updateWeather, removeCity, getVerdict } from '../localDb';
+import { getCities, addCity, updateWeather, removeCity, getVerdict } from '../utils';
 import './Overview.css';
 
 class Overview extends Component {

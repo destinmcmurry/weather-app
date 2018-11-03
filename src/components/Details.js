@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import history from '../history';
-import { getCity, updateForecast, getDayOfWeek, getVerdict } from '../localDb';
+import { getCity, updateForecast, getDayOfWeek, getVerdict } from '../utils';
 import NotFound from './NotFound';
 import './Details.css';
 

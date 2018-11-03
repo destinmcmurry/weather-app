@@ -6,7 +6,7 @@ const Routes = props => {
   return (
     <Switch>
       <Route path='/details/:placeId' component={Details} />
-      <Route path='/' component={Overview} />
+      <Route exact path='/' component={Overview} />
     </Switch>
   )
 }

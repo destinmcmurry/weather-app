@@ -11,7 +11,7 @@ const App = props => {
       <h1 className='header'>Whether</h1>
       <h4 className='sub-header'>it's nice out</h4>
       </div>
-      <Routes/>
+      <Routes />
       <Footer />
     </div>
   );

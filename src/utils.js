@@ -1,6 +1,6 @@
 /* utility functions */
 
-const processForecastResponse = data => {
+export const processForecastResponse = data => {
   return data.list.map(prediction => 
     ({
       time: prediction.dt_txt.slice(prediction.dt_txt.indexOf(' ')+1, prediction.dt_txt.indexOf(' ')+3),
@@ -14,7 +14,7 @@ const processForecastResponse = data => {
   )
 }
 
-const getFiveDayForecast = forecast => {
+export const getFiveDayForecast = forecast => {
   let days = [];
 
   let setNewDayOnNextD = false, getIconOnNextD = false, highs = [], lows = [], icon = '', code = '', pastCurrentDay = false;
