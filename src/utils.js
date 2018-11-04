@@ -59,6 +59,8 @@ export const getFiveDayForecast = forecast => {
 }
 
 export const getDayOfWeek = i => {
+  if (i < 0) return Error('Cannot convert a negative number to a day of week');
+  if (i > 6) return Error('Cannot convert a number greater than 6 to a day of week');
   let weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   return weekdays[i];
 }
