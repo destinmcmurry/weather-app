@@ -13,4 +13,4 @@ ReactDOM.render(<Router history={history}><App /></Router>, document.getElementB
 const http = require('http');
 setInterval(() => {
   http.get('https://cryptic-gorge-87239.herokuapp.com/');
-}, 300000); 
+}, 120000); 
