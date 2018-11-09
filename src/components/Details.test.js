@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 
-describe('Details Page', function () {
-  it('should have a test file', function () {
+describe('Details Page', () => {
+  it('should have a test file', () => {
     expect(true).to.be.true;
   });
 });

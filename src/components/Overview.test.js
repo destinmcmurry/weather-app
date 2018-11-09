@@ -9,7 +9,7 @@ import { expect } from 'chai';
 
 
 describe('Overview Page', () => {
-  it('should have a test file', function () {
+  it('should have a test file', () => {
     expect(true).to.be.true;
   });
   // it('renders without crashing', () => {
